@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 
 @Service
 public class SeclillServiceImpl implements SeckillService{
@@ -38,6 +39,9 @@ public class SeclillServiceImpl implements SeckillService{
 
     @Autowired
     private RedisDao redisDao;
+
+    ThreadPoolExecutor executor=new ThreadPoolExecutor(10,20,300, TimeUnit.MILLISECONDS,
+            new ArrayBlockingQueue<Runnable>(50));
 
     //md5盐值字符串，用于混淆md5
     private final String salt="shsdssljdd'l.";
